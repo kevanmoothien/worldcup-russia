@@ -1,0 +1,37 @@
+source 'https://rubygems.org'
+
+ruby '2.5.0'
+
+gem 'active_model_serializers', '~> 0.8.0'
+gem 'angular-rails-templates'
+gem 'bh'
+gem 'bootstrap-glyphicons'
+gem 'bootstrap-sass'
+gem 'bourbon'
+gem 'coffee-rails', '~> 4.2.1'
+gem 'devise'
+gem 'flutie'
+gem 'font-awesome-rails'
+gem 'jbuilder', '~> 2.0'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'kaminari'
+gem 'newrelic_rpm'
+gem 'pg'
+gem 'puma'
+gem 'rack-cors', require: 'rack/cors'
+gem 'rails_12factor'
+gem 'rails', '5.2.0'
+gem 'sass-rails', '~> 5.0'
+gem 'slim-rails'
+gem 'turbolinks'
+gem 'uglifier'
+gem 'useragent'
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+  gem 'web-console'
+  gem 'spring'
+  gem 'foreman'
+end

@@ -1,0 +1,97 @@
+.container
+  .row.hidden-xs
+    .col-md-6.col-lg-6.col-sm-6.col-xs-12
+      a.btn.btn-default style="margin: 10px 0" ui-sref="match-new" ng-if="user.admin" = "New match"
+      =" "
+      a.btn.btn-default style="margin: 10px 0" ng-click="edit_mode()" ng-if="!edit && user.me" = "Edit all"
+      =" "
+      a.btn.btn-success style="margin: 10px 0" ng-click="bet_all()" ng-if="edit" = "Save bet"
+      =" "
+      a.btn.btn-info style="margin: 10px 0" ng-click="cancel_bet()" ng-if="edit" = "Cancel"
+  .row
+    .col-md-6.col-lg-6.col-sm-6.col-xs-12
+      b = "Total points: "
+      b = "{{scores}}"
+      span
+        b style="color: red; margin-left:12px" =" | "
+        a.btn.btn-link style="margin: 10px 0" ng-click="toggle_no_filter()" ng-class="{'disabled': no_filter}" = "All"
+        = " "
+        a.btn.btn-link style="margin: 10px 0" ng-click="toggle_no_filter()" ng-class="{'disabled': !no_filter}" = "Recent"
+  .matches-list
+    h3.matches-match_date ng-repeat-start="(key, value) in matches | filter: filters | filter: greaterThan() | orderBy: 'schedule' | groupBy:'date'" ="{{key}}"
+    .match-row.match-finalTrn.match-groupStage.match-notFake.match-row--horizontal ng-repeat="match in value | orderBy: 'schedule'"
+      .match.m_2017877.match-row_match
+        .team-home ng-class="{'match--winner': match.score_a > match.score_b }"
+          .team-code
+            | {{match.team_a.api_name}}
+          .team-name
+            span.team-name_name ="{{match.team_a.name}}"
+          span.team-flag  class="flag-{{match.team_a.api_name}}"
+        .text-center.match--score
+          span.js-tolocaltime.match--score_time ng-if="match.played()" ="{{match.schedule | date:'HH:mm'}}"
+          span.js-tolocaltime.match--score_time ng-if="!match.played()" ="{{match.score_a}} - {{match.score_b}}"
+          .js-tolocaltime.match--score_time
+        .team-away ng-class="{'match--winner': match.score_b > match.score_a }"
+          span.team-flag class="flag-{{match.team_b.api_name}}"
+          .team-code
+            | {{match.team_b.api_name}}
+          .team-name
+            span.team-name_name ="{{match.team_b.name}}"
+        .match-row_status.match--info11 style="padding: 0" ng-if= "!edit && (!match.played() || user.me)"
+          .match-row_match-status style="display:inline-block;width:100%"
+            div style="display:inline-block;width:23%"
+              a.btn.btn-link href="" ng-click="bet($event, match)" ng-if="match.played() && user.me"
+                i.fa.fa-pencil
+              a.btn.btn-link href="" ng-if="user.admin && user.me && !match.played()" ng-click="update($event, match)"
+                i.fa.fa-edit
+                = " "
+              a.btn.btn-link.pull-right.hidden-xs style="color: red" ng-if="user.admin && user.me && match.played()" href="" ng-click="delete($event, match)"
+                i.fa.fa-close
+            div style="display:inline-block;width:50%"
+              span ng-if="match.user_score_a != null" = "{{match.user_score_a}} - {{match.user_score_b}}"
+              span ng-if="match.user_score_a == null" = "No bet found"
+            div style="display:inline-block;width:23%"
+              span ="{{match.score()}} pts"
+        .match-row_status.match--info11 style="padding: 0" ng-if="edit && match.played() && user.me"
+          input.bet type="number" ng-model="match.user_score_a"
+          span style="margin-left: 10px; margin-right: 10px" = "-"
+          input.bet type="number" ng-model="match.user_score_b"
+    div style="margin-bottom: 60px" ng-repeat-end =""
+    div style="margin-bottom: 30px"
+  back-to-top
+script type="text/ng-template" id="firstDialog"
+  div class="ngdialog-message"
+    .row
+      .col-xs-12
+        h2 = "Edit Score"
+        .form-horizontal
+          .form-group
+            label.control-label.col-sm-5.col-xs-6 = "{{ngDialogData.match.team_a.name}}"
+            .col-sm-5.col-xs-6
+              input.form-control type="tel" pattern="\d*"  placeholder="Team A" ng-model="ngDialogData.match.score_a"
+          .form-group
+            label.control-label.col-sm-5.col-xs-6 = "{{ngDialogData.match.team_b.name}}"
+            .col-sm-5.col-xs-6
+              input.form-control type="tel" pattern="\d*"  placeholder="Team B" ng-model="ngDialogData.match.score_b"
+    div class="ngdialog-buttons mt"
+      button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="save($event, ngDialogData.match)"
+        | Save
+
+script type="text/ng-template" id="secondDialog"
+  div class="ngdialog-message"
+    .row
+      .col-xs-12
+        h2 = "Bet"
+        .form-horizontal
+          .form-group
+            label.control-label.col-sm-5.col-xs-6 = "{{ngDialogData.match.team_a.name}}"
+            .col-sm-5.col-xs-6
+              input.form-control type="tel" pattern="\d*" placeholder="Score A" ng-model="ngDialogData.match.user_score_a"
+          .form-group
+            label.control-label.col-sm-5.col-xs-6 = "{{ngDialogData.match.team_b.name}}"
+            .col-sm-5.col-xs-6
+              input.form-control type="tel" pattern="\d*" placeholder="Score B" ng-model="ngDialogData.match.user_score_b"
+    div class="ngdialog-buttons mt"
+      button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="save_bet($event, ngDialogData.match)"
+        | Save
+
