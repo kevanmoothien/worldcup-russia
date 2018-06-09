@@ -1,8 +1,8 @@
 .container
   .row
     .col-md-6.col-lg-4.col-sm-6.col-xs-12 data-code="{{team.api}}" ng-repeat="team in teams | orderBy: 'name'"
-      .team-container style="background-image: url(/{{team.api}}.jpg); background-repeat: no-repeat;" ng-click="set_active(team.api)"
-        div class="team-flag flag-{{team.api}}"
+      .team-container ng-style="{'background-image': 'url(/{{team.api}}.jpg)'}" ng-click="set_active(team.api)"
+        div class="team-flag"
           .team-label
             img ng-src="{{team.flag}}"
             span ="{{team.name}}"
