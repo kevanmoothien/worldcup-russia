@@ -1,19 +1,17 @@
 .container
   .row
-    .col-md-6.col-lg-6.col-sm-6.col-xs-12 data-code="{{team.api}}" ng-repeat="team in teams"
-      /a style="display: block;margin:10px 0;height:110px;background-color:#000; background-position: top right;background-size: 130%; text-decoration: none; cursor: pointer" class="team-hub_link"
-      .row.team-container ng-click="set_active(team.api)"
-        .col-xs-1
-          div class="team-flag flag-{{team.api}}"
+    .col-md-6.col-lg-4.col-sm-6.col-xs-12 data-code="{{team.api}}" ng-repeat="team in teams | orderBy: 'name'"
+      .team-container style="background-image: url(/{{team.api}}.jpg); background-repeat: no-repeat;" ng-click="set_active(team.api)"
+        div class="team-flag flag-{{team.api}}"
+          .team-label
             img ng-src="{{team.flag}}"
-        .col-xs-10
-          span.team-label ="{{team.name}}"
+            span ="{{team.name}}"
 
       div uib-collapse="!(team_active == team.api)"
         well.well-lg
           .matches-list
-            h3.matches-match_date ng-if="team.matches.length == 0" ="no match found"
-            h3.matches-match_date ng-repeat-start="(key, value) in team.matches | filter: filters | filter: greaterThan() | orderBy: 'schedule' | groupBy:'date'" = "{{key}}"
+            h4.text-center ng-if="team.matches.length == 0" ="no match found"
+            h4.text-center ng-repeat-start="(key, value) in team.matches | filter: filters | filter: greaterThan() | orderBy: 'schedule' | groupBy:'date'" = "{{key}}"
             .match-row.match-finalTrn.match-groupStage.match-notFake.match-row--horizontal ng-repeat="match in value | orderBy: 'schedule'"
               .match.m_2017877.match-row_match
                 .team-home ng-class="{'match--winner': match.score_a > match.score_b }"
