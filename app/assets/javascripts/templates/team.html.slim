@@ -19,13 +19,17 @@
                     | {{match.team_a.api_name}}
                   .team-name
                     span.team-name_name = "{{match.team_a.name}}"
-                  span.team-flag class="flag-{{match.team_a.api_name}}"
+                  /span.team-flag class="flag-{{match.team_a.api_name}}"
+                  div.team-flag
+                    img ng-src="{{match.team_a.flag}}"
                 .text-center.match--score
                   span.js-tolocaltime.match--score_time ng-if="match.played()" = "{{match.schedule | date:'HH:mm'}}"
                   span.js-tolocaltime.match--score_time ng-if="!match.played()" = "{{match.score_a}} - {{match.score_b}}"
                   .js-tolocaltime.match--score_time
                 .team-away ng-class="{'match--winner': match.score_b > match.score_a }"
-                  span.team-flag class="flag-{{match.team_b.api_name}}"
+                  /span.team-flag class="flag-{{match.team_b.api_name}}"
+                  div.team-flag
+                    img ng-src="{{match.team_b.flag}}"
                   .team-code
                     | {{match.team_b.api_name}}
                   .team-name
