@@ -5,10 +5,10 @@ threads threads_count, threads_count
 preload_app!
 
 rackup DefaultRackup
-port ENV['PORT'] || 3000
+port ENV['PORT'] || 5000
 environment ENV['RACK_ENV'] || 'development'
 ssl_bind('0.0.0.0',
-         (ENV['PORT'] || 3000).to_i + 1,
+         (ENV['PORT'] || 5000).to_i + 1,
          key: 'server.key',
          cert: 'server.cert'
         ) if File.exist?('server.key') && File.exist?('server.cert')
