@@ -26,7 +26,12 @@ Rails.application.routes.draw do
     end
   end
 
+  authenticated(:user, ->(user) { user.admin? }) do
+    ActiveAdmin.routes(self)
+  end
+
   devise_for :users
+
   get 'mains/index'
 
   root to: 'mains#index'
