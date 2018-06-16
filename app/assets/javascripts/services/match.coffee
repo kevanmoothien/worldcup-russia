@@ -49,7 +49,7 @@ angular.module('euro.services')
           return 1
         return 0
       played: ->
-        Date.parse(@schedule) > Date.now()
+        Date.parse(@schedule) < Date.now()
     Match.all = (current_user)->
       matches = []
       promise = PaginationLoader(
