@@ -27,6 +27,6 @@ module WorldCup
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
     config.assets.paths << Rails.root.join('/app/assets/fonts')
 
-    config.action_mailer.default_url_options = { host: ENV['DOMAIN'] }
+    config.action_mailer.default_url_options = { host: ENV['DOMAIN'] || 'localhost' }
   end
 end

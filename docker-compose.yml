@@ -14,6 +14,7 @@ web:
     - redis
     - elasticsearch
     - kibana
+    - mailcatcher
   environment:
     - RACK_ENV=development
     - RAILS_ENV=development
@@ -60,3 +61,8 @@ adminer:
     - elasticsearch
   ports:
     - "8080:8080"
+mailcatcher:
+  image: stpaquet/alpinemailcatcher
+  ports:
+    - "1025:1025"
+    - "1080:1080"
