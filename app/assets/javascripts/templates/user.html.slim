@@ -7,7 +7,7 @@
           th ="User"
           th ="Pts"
           th =""
-        tbody ng-repeat="user_list in users"
+        tbody ng-repeat="user_list in users | orderBy: 'rank'"
           tr ng-repeat="user in user_list.users"
             td
               span ng-show="user_list.rank != 1 && user_list.rank != 2 && user_list.rank != 3 && $index == 0"
@@ -15,7 +15,7 @@
               i.fa.fa-trophy.fa-2x style="color: gold" ng-if="user_list.rank == 1"
               i.fa.fa-trophy.fa-2x style="color: silver" ng-if="user_list.rank == 2"
               i.fa.fa-trophy.fa-2x style="color: #8C7853" ng-if="user_list.rank == 3"
-            td ="{{user.username}}"
+            td style="text-transform: capitalize;" ="{{user.name}}"
             td ="{{user.score}}"
             td
               a.btn.btn-link ui-sref="matches({user_id: user.id})"

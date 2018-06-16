@@ -14,6 +14,7 @@ angular.module('euro.services')
         @email = data.email
         @score = data.score
         @me = me
+        @name = @username.split('.').join(' ')
       load_matches: ->
         @_matches = []
         promise = PaginationLoader(
@@ -50,12 +51,23 @@ angular.module('euro.services')
         user = new User(res.data.user, false)
         defer.resolve user
       defer.promise
+
+    users = []
+    User.load_all = ->
+      promise = PaginationLoader(
+        (page)=>
+          $http.get('/api/v1/users?page='+page).then (res)->
+            res.data.users
+      ,(results, page)=>
+        users.length = 0 if page == 1
+        $rootScope.$evalAsync =>
+          _.each results, (result)=>
+            users.push(new User(result))
+      , =>
+        users
+      )
+      promise
     User.all = ->
-      defer = $q.defer()
-      $http.get('/api/v1/users').then (res)->
-        users = []
-        _.each res.data.users, (user)->
-          users.push(new User(user))
-        defer.resolve users
-      defer.promise
+      User.load_all()
+      users
     return User
