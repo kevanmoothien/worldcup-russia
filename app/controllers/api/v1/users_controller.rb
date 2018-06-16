@@ -2,7 +2,7 @@ module Api::V1
   class UsersController < ApiController
     before_action :authenticate_user!, except: :no_bet
     def index
-      render json: User.all, each_serializer: UserSerializer
+      render json: User.where(active: true).page(params[:page]).per(10), each_serializer: UserSerializer
     end
 
     def me

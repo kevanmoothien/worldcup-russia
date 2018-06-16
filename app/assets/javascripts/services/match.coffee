@@ -2,7 +2,6 @@ angular.module('euro.services')
   .factory 'Match',
   ($http,
     $q,
-    User,
     $filter,
     PaginationLoader,
     $rootScope
@@ -50,24 +49,24 @@ angular.module('euro.services')
         return 0
       played: ->
         Date.parse(@schedule) < Date.now()
-    Match.all = (current_user)->
-      matches = []
-      promise = PaginationLoader(
-        (page)=>
-          $http.get("/api/v1/users/#{current_user.id}/matches?page=#{page}").then (res)->
-            res.data.matches
-        ,(results, page)=>
-          matches.length = 0 if page == 1
-          $rootScope.$evalAsync =>
-            _.each results, (match)=>
-              if Date.now() > Date.parse(match.schedule) && !current_user.me
-                matches.push(new Match(match))
-              else if current_user.me
-                matches.push(new Match(match))
-        , =>
-          matches
-      )
-      promise
+#    Match.all = (current_user)->
+#      matches = []
+#      promise = PaginationLoader(
+#        (page)=>
+#          $http.get("/api/v1/users/#{current_user.id}/matches?page=#{page}").then (res)->
+#            res.data.matches
+#        ,(results, page)=>
+#          matches.length = 0 if page == 1
+#          $rootScope.$evalAsync =>
+#            _.each results, (match)=>
+#              if Date.now() > Date.parse(match.schedule) && !current_user.me
+#                matches.push(new Match(match))
+#              else if current_user.me
+#                matches.push(new Match(match))
+#        , =>
+#          matches
+#      )
+#      promise
     Match.bulk_create = (data)->
       defer = $q.defer()
       $http.post('/api/v1/matches', {infos: data}).then (res)->

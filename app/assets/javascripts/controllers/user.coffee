@@ -11,11 +11,19 @@ angular.module('euro.controllers')
           User.all()
     })
   .controller 'userController', ($scope, users, $filter)->
-    users_group = $filter('reverse')($filter('toArray')($filter('groupBy')(users, 'score'), true))
     $scope.users = []
-    counter = 1
-    previous_list_length = 0
-    _.each users_group, (user_list)->
-      $scope.users.push({rank: counter, users: user_list})
-      previous_list_length = user_list.length
-      counter = counter + previous_list_length
+    $scope.all_users = users
+    $scope.$watch 'all_users', ->
+      build()
+    , true
+
+    build = ->
+      $scope.users = []
+      users_group = $filter('reverse')($filter('toArray')($filter('groupBy')(users, 'score'), true))
+      counter = 1
+      previous_list_length = 0
+      _.each users_group, (user_list)->
+        $scope.$evalAsync ->
+          $scope.users.push({rank: counter, users: user_list})
+          previous_list_length = user_list.length
+          counter = counter + previous_list_length
