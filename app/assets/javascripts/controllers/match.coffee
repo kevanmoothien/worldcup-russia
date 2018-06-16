@@ -16,8 +16,10 @@ angular.module('euro.controllers')
           else 
             user = User.find($stateParams.user_id)
           user
-        matches: (Match, current_user)->
-          Match.all(current_user)
+        matches: (current_user)->
+          current_user.matches()
+#          Match.all(current_user)
+
     })
     .state('match-new', {
       url: '/matches/new',
@@ -103,10 +105,12 @@ angular.module('euro.controllers')
         update_score()
     $scope.$watch 'matches', ->
       update_score()
+    , true
     update_score = ->
       $scope.scores = 0
       _.each $scope.matches, (match)->
-        $scope.scores += match.score()
+        $scope.$evalAsync ->
+          $scope.scores += match.score()
     last_week = ()->
       d = new Date()
       day = d.getDay()
