@@ -23,44 +23,44 @@
       .match.m_2017877.match-row_match
         .team-home ng-class="{'match--winner': match.score_a > match.score_b }"
           .team-code
-            | {{match.team_a.api_name}}
+            | {{match.team_a.name}}
           .team-name
             span.team-name_name ="{{match.team_a.name}}"
           /span.team-flag  class="flag-{{match.team_a.api_name}}" ng-style="{'background-image': 'url({{match.team_a.flag}})'}"
           div.team-flag.team-flag-border
             img ng-src="{{match.team_a.flag}}"
         .text-center.match--score
-          span.js-tolocaltime.match--score_time ng-if="match.played()" ="{{match.schedule | date:'HH:mm'}}"
-          span.js-tolocaltime.match--score_time ng-if="!match.played()" ="{{match.score_a}} - {{match.score_b}}"
+          span.js-tolocaltime.match--score_time ng-if="!match.played()" ="{{match.schedule | date:'HH:mm'}}"
+          span.js-tolocaltime.match--score_time ng-if="match.played()" ="{{match.score_a}} - {{match.score_b}}"
           .js-tolocaltime.match--score_time
         .team-away ng-class="{'match--winner': match.score_b > match.score_a }"
           /span.team-flag class="flag-{{match.team_b.api_name}}"
           div.team-flag.team-flag-border
             img ng-src="{{match.team_b.flag}}"
           .team-code
-            | {{match.team_b.api_name}}
+            | {{match.team_b.name}}
           .team-name
             span.team-name_name ="{{match.team_b.name}}"
-        .match-row_status.match--info11 style="padding: 0" ng-if= "!edit && (!match.played() || user.me)"
+        .match-row_status.match--info11 style="padding: 0" ng-if= "!edit && (match.played() || user.me)"
           .match-row_match-status style="display:inline-block;width:100%"
             div style="display:inline-block;width:23%"
-              a.btn.btn-link href="" ng-click="bet($event, match)" ng-if="match.played() && user.me"
+              a.btn.btn-link href="" ng-click="bet($event, match)" ng-if="!match.played() && user.me"
                 i.fa.fa-pencil
-              a.btn.btn-link href="" ng-if="user.admin && user.me && !match.played()" ng-click="update($event, match)"
+              a.btn.btn-link href="" ng-if="user.admin && user.me && match.played()" ng-click="update($event, match)"
                 i.fa.fa-edit
                 = " "
-              a.btn.btn-link.pull-right.hidden-xs style="color: red" ng-if="user.admin && user.me && match.played()" href="" ng-click="delete($event, match)"
+              a.btn.btn-link.pull-right.hidden-xs style="color: red" ng-if="user.admin && user.me && !match.played()" href="" ng-click="delete($event, match)"
                 i.fa.fa-close
             div style="display:inline-block;width:50%"
               span ng-if="match.user_score_a != null" = "{{match.user_score_a}} - {{match.user_score_b}}"
               span ng-if="match.user_score_a == null" = "No bet found"
             div style="display:inline-block;width:23%"
               span ="{{match.score()}} pts"
-        .match-row_status.match--info11 style="padding: 0" ng-if="edit && match.played() && user.me"
+        .match-row_status.match--info11 style="padding: 0" ng-if="edit && !match.played() && user.me"
           input.bet type="number" ng-model="match.user_score_a"
           span style="margin-left: 10px; margin-right: 10px" = "-"
           input.bet type="number" ng-model="match.user_score_b"
-    div style="margin-bottom: 60px" ng-repeat-end =""
+    div style="margin-bottom: 25px" ng-repeat-end =""
     div style="margin-bottom: 30px"
   back-to-top
 script type="text/ng-template" id="firstDialog"
