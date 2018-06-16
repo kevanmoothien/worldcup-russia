@@ -7,6 +7,7 @@ RUN apt-get update -qq && \
     libpq-dev\
     libxml2-dev\
     libxslt1-dev\
+    libsqlite3-dev \
     qt5-default\
     libqt5webkit5-dev\
     gstreamer1.0-plugins-base\
