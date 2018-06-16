@@ -17,8 +17,9 @@ angular.module('euro.services')
         _.each data.matches, (match)->
           matches_data.push(new Match(match))
         @matches = matches_data
-    Team.all = ->
-      teams = []
+    teams = []
+    Team.load_all = ->
+#      teams = []
       promise = PaginationLoader(
         (page)=>
           $http.get('/api/v1/teams/?page='+page).then (res)->
@@ -32,4 +33,7 @@ angular.module('euro.services')
           teams
       )
       promise
+    Team.all = ->
+      Team.load_all()
+      teams
     return Team
