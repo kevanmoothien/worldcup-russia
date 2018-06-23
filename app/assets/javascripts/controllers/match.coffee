@@ -91,16 +91,22 @@ angular.module('euro.controllers')
           user_score_b: match.user_score_b
     $scope.save = (e, match)->
       e.preventDefault()
-      match.update().then (res)->
+      match.update().then((res)->
         ngDialog.close()
         new Alert('success', 'Match has been successfully updated', 5000)
         update_score()
+      , (e)->
+        new Alert('danger', 'Something went wrong. Please try again later', 5000)
+      )
     $scope.save_bet = (e, match)->
       e.preventDefault()
-      match.update_bet().then (res)->
+      match.update_bet().then((res)->
         ngDialog.close()
         new Alert('success', 'Bet has been successfully updated', 5000)
         update_score()
+      , (e)->
+        new Alert('danger', 'Something went wrong. Please try again later', 5000)
+      )
     $scope.$watch 'matches', ->
       update_score()
     update_score = ->

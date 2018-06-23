@@ -21,13 +21,19 @@ angular.module('euro.services')
         @date = $filter('date')(@schedule, "EEEE dd MMM yyyy")
       update: ->
         defer = $q.defer()
-        $http.put("/api/v1/matches/#{@id}", {score_a: @score_a, score_b: @score_b }).then (res)->
+        $http.put("/api/v1/matches/#{@id}", {score_a: @score_a, score_b: @score_b }).then((res)->
           defer.resolve res
+        , (err)->
+          defer.reject err
+        )
         defer.promise
       update_bet: ->
         defer = $q.defer()
-        $http.post("/api/v1/matches/#{@id}/bets", {score_a: @user_score_a, score_b: @user_score_b }).then (res)->
+        $http.post("/api/v1/matches/#{@id}/bets", {score_a: @user_score_a, score_b: @user_score_b }).then((res)->
           defer.resolve res
+        , (err)->
+          defer.reject err
+        )
         defer.promise
       destroy: ->
         defer = $q.defer()
