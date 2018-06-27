@@ -10,7 +10,7 @@ module Api::V1
       return unless current_user.admin?
       params[:infos].each do |item|
         match = item #JSON.parse(item)
-        Match.create! team_a: Team.find_by(public_id: match[:teamA]), team_b: Team.find_by(public_id: match[:teamB]), schedule: match[:time]
+        Match.create! team_a: Team.find_by(public_id: match[:teamA]), team_b: Team.find_by(public_id: match[:teamB]), schedule: match[:time], final: match[:final]
       end
       render json: {}
     end

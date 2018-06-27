@@ -2,7 +2,7 @@
   .row
     .col-xs-12
       h1 ="You don't have enough priviledge to access this page"
-.container ng-if="user.admin"
+.container-fluid ng-if="user.admin"
   .row
     .col-md-6.col-lg-6.col-sm-6.col-xs-12
       h3 ="New match schedule"
@@ -15,12 +15,17 @@
           ="vs"
         .col-xs-3
           select.form-control  required="required" ng-options="item.id as item.name for item in teams track by item.id" ng-model="match.teamB"
-        .col-xs-4
+        .col-xs-3
           p class="input-group"
             input type="text"  required="required" class="form-control" datetime-picker="dd/MM/yyyy HH:mm" ng-model="match.time" ng-click="openCalendar($event, prop, match)" is-open="match.isOpen"
             span class="input-group-btn"
               button type="button" class="btn btn-default" ng-click="openCalendar($event, prop, match)"
                 i class="fa fa-calendar"
+        .col-xs-1
+          .checkbox
+            label
+              input type="checkbox" ng-model="match.final"
+              ="2x Score?"
         .col-xs-1
           a.btn.btn-default href="" ng-click="remove($event,match)"
             i.fa.fa-close
