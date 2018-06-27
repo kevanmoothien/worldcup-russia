@@ -18,6 +18,7 @@ angular.module('euro.services')
         @user_score_b = data.user_score_b
         @not_played = Date.parse(@schedule) > Date.now()
         @date = $filter('date')(@schedule, "EEEE dd MMM yyyy")
+        @final = data.final
       update: ->
         defer = $q.defer()
         $http.put("/api/v1/matches/#{@id}", {score_a: @score_a, score_b: @score_b }).then((res)->
@@ -40,6 +41,11 @@ angular.module('euro.services')
           defer.resolve res
         defer.promise
       score: ->
+        sc = @calc_score()
+        if @final
+          sc = sc * 2
+        sc
+      calc_score: ->
         if @user_score_a == null || @user_score_b == null || @score_a == null || @score_b == null
           return 0
         #exact score prediction

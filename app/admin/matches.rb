@@ -1,5 +1,5 @@
 ActiveAdmin.register Match do
-  permit_params :schedule
+  permit_params :schedule, :final
 
   index do
     selectable_column
@@ -10,6 +10,7 @@ ActiveAdmin.register Match do
     column :score_b
     column :schedule
     column :created_at
+    column :final
     actions
   end
 
@@ -19,6 +20,7 @@ ActiveAdmin.register Match do
   form do |f|
     f.inputs do
       f.input :schedule
+      f.input :final
 
     end
     f.actions
