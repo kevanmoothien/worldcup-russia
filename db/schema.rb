@@ -10,34 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_15_040345) do
+ActiveRecord::Schema.define(version: 2018_06_27_170451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "bets", force: :cascade do |t|
+  create_table "bets", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.integer "score_a"
     t.integer "score_b"
     t.integer "user_id"
-    t.integer "match_id"
+    t.uuid "match_id"
     t.uuid "public_id", default: -> { "uuid_generate_v4()" }
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "matches", force: :cascade do |t|
-    t.integer "team_a"
-    t.integer "team_b"
+  create_table "matches", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "team_a"
+    t.uuid "team_b"
     t.integer "score_a"
     t.integer "score_b"
     t.datetime "schedule"
     t.uuid "public_id", default: -> { "uuid_generate_v4()" }
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "final", default: false
   end
 
-  create_table "teams", force: :cascade do |t|
+  create_table "teams", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "name"
     t.string "api_name"
     t.datetime "created_at", null: false
@@ -47,7 +48,7 @@ ActiveRecord::Schema.define(version: 2018_06_15_040345) do
     t.string "flag"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

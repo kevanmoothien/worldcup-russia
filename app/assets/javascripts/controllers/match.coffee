@@ -127,11 +127,11 @@ angular.module('euro.controllers')
     $scope.user = current_user
     $scope.teams = teams
     
-    $scope.new_matches = [{ teamA: null, teamB: null, time: null }]
+    $scope.new_matches = [{ teamA: null, teamB: null, time: null, final: false }]
     
     $scope.new_match = (e)->
       e.preventDefault()
-      $scope.new_matches.push { teamA: null, teamB: null, time: null }
+      $scope.new_matches.push { teamA: null, teamB: null, time: null, final: false }
     $scope.remove = (e, item)->
       e.preventDefault()
       index = $scope.new_matches.indexOf(item)
