@@ -3,6 +3,14 @@ class Bet < ActiveRecord::Base
   belongs_to :user
 
   def score
+    current = calc_score
+    if match.final
+      return current * 2
+    end
+    current
+  end
+
+  def calc_score
     if score_a == nil || score_b == nil || match.score_a == nil || match.score_b == nil
       return 0
     end
