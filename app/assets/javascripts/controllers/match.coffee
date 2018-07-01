@@ -107,6 +107,9 @@ angular.module('euro.controllers')
         new Alert('success', 'Bet has been successfully updated', 10000)
         update_score()
       , (e)->
+        $scope.$evalAsync ->
+          match.user_score_a = null
+          match.user_score_b = null
         new Alert('danger', 'Something went wrong. Please try again later', 10000)
       )
     $scope.$watch 'matches', ->
