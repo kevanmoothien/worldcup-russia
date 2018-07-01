@@ -90,12 +90,12 @@ script type="text/ng-template" id="secondDialog"
           .form-group
             label.control-label.col-sm-5.col-xs-6 = "{{ngDialogData.match.team_a.name}}"
             .col-sm-5.col-xs-6
-              input.form-control type="tel" pattern="\d*" placeholder="Score A" ng-model="ngDialogData.match.user_score_a"
+              input.form-control type="tel" pattern="\d*" placeholder="Score A" ng-model="ngDialogData.user_score_a"
           .form-group
             label.control-label.col-sm-5.col-xs-6 = "{{ngDialogData.match.team_b.name}}"
             .col-sm-5.col-xs-6
-              input.form-control type="tel" pattern="\d*" placeholder="Score B" ng-model="ngDialogData.match.user_score_b"
+              input.form-control type="tel" pattern="\d*" placeholder="Score B" ng-model="ngDialogData.user_score_b"
     div class="ngdialog-buttons mt"
-      button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="save_bet($event, ngDialogData.match)"
+      button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="save_bet($event, ngDialogData.match, ngDialogData.user_score_a, ngDialogData.user_score_b)"
         | Save
 

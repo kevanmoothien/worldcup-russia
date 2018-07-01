@@ -100,16 +100,20 @@ angular.module('euro.controllers')
       , (e)->
         new Alert('danger', 'Something went wrong. Please try again later', 10000)
       )
-    $scope.save_bet = (e, match)->
+    $scope.save_bet = (e, match, user_score_a, user_score_b)->
       e.preventDefault()
+      backup_score_a = match.user_score_a
+      backup_score_b = match.user_score_b
+      match.user_score_a = user_score_a
+      match.user_score_b = user_score_b
       match.update_bet().then((res)->
         ngDialog.close()
         new Alert('success', 'Bet has been successfully updated', 10000)
         update_score()
       , (e)->
         $scope.$evalAsync ->
-          match.user_score_a = null
-          match.user_score_b = null
+          match.user_score_a = backup_score_a
+          match.user_score_b = backup_score_b
         new Alert('danger', 'Something went wrong. Please try again later', 10000)
       )
     $scope.$watch 'matches', ->
