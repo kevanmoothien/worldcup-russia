@@ -59,7 +59,7 @@ angular.module('euro.controllers')
         if res
           Match.all(current_user).then (matches)->
             $scope.matches = matches
-          new Alert('success', 'Bet has been successfully updated', 5000)
+          new Alert('success', 'Bet has been successfully updated', 10000)
         $scope.filters = {}
 
     $scope.cancel_bet = ->
@@ -70,7 +70,7 @@ angular.module('euro.controllers')
       e.preventDefault()
       if window.confirm('Are you sure')
         match.destroy().then (res)->
-          new Alert('success', 'Delete successful', 5000)
+          new Alert('success', 'Delete successful', 10000)
           index = $scope.matches.indexOf(match)
           $scope.matches.splice(index, 1)
     
@@ -95,19 +95,19 @@ angular.module('euro.controllers')
       e.preventDefault()
       match.update().then((res)->
         ngDialog.close()
-        new Alert('success', 'Match has been successfully updated', 5000)
+        new Alert('success', 'Match has been successfully updated', 10000)
         update_score()
       , (e)->
-        new Alert('danger', 'Something went wrong. Please try again later', 5000)
+        new Alert('danger', 'Something went wrong. Please try again later', 10000)
       )
     $scope.save_bet = (e, match)->
       e.preventDefault()
       match.update_bet().then((res)->
         ngDialog.close()
-        new Alert('success', 'Bet has been successfully updated', 5000)
+        new Alert('success', 'Bet has been successfully updated', 10000)
         update_score()
       , (e)->
-        new Alert('danger', 'Something went wrong. Please try again later', 5000)
+        new Alert('danger', 'Something went wrong. Please try again later', 10000)
       )
     $scope.$watch 'matches', ->
       update_score()
@@ -146,4 +146,4 @@ angular.module('euro.controllers')
       e.preventDefault()
       Match.bulk_create($scope.new_matches).then (res)->
         $scope.new_matches = []
-        new Alert('success', 'Match has been successfully created', 5000)
+        new Alert('success', 'Match has been successfully created', 10000)
